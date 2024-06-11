@@ -16,3 +16,4 @@ Saved
 .SourceSageAssets
 .Gaiah.md
 *.log
+.env
