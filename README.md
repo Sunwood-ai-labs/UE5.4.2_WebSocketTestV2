@@ -91,6 +91,12 @@ python websocket_server.py
 - Python の依存関係が正しくインストールされていることを確認してください。
 - Unreal Engine プロジェクトのコンパイルエラーが発生した場合は、Visual Studio の出力ウィンドウでエラーメッセージを確認してください。
 
+## 開発用
+
+```bash
+sourcesage --mode DocuMind --docuMind-model "gemini/gemini-1.5-pro-latest" --docuMind-db ".SourceSageAssets\DOCUMIND\Repository_summary.md" --docuMind-release-report ".SourceSageAssets\RELEASE_REPORT\Report_v0.2.0.md"  --docuMind-changelog ".SourceSageAssets\Changelog\CHANGELOG_release_0.2.0.md"  --docuMind-output ".SourceSageAssets/DOCUMIND/RELEASE_NOTES_v0.2.0.md"  --docuMind-prompt-output ".SourceSageAssets/DOCUMIND/_PROMPT_v0.2.0.md"  --repo-name "UE5.4.2 WebSocket" --repo-version "v0.2.0"
+```
+
 ## 貢献
 
 このプロジェクトへの貢献を歓迎します。バグ報告や機能リクエストがある場合は、Issueを作成してください。プルリクエストも大歓迎です。
