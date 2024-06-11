@@ -12,7 +12,7 @@ void UWebSocketTestGameInstance::Init()
     MessageJpText = TEXT("初期化：UWebSocketTestGameInstance");
     GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, MessageJpText);
 
-    const char8_t* MessageUtf8 = u8"こんにちは";
+    const char8_t* MessageUtf8 = u8"---日本語のテスト---";
 
     FString MessageUtf8Str = UTF8_TO_TCHAR(MessageUtf8);
     auto MessageJpTextLocal = StringCast<TCHAR>(*MessageUtf8Str);
