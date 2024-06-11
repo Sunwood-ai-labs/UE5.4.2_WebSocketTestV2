@@ -48,6 +48,10 @@ class AWebSocketTestV2Character : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* NotifyAction;
 
+	/** Hello Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* HelloAction;
+
 public:
 	AWebSocketTestV2Character();
 
@@ -59,11 +63,24 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
+	// NotifyServer
 	void NotifyServer();
 	void StartNotifyServer();
 	void EndNotifyServer();
+	
+	// HelloServer
+	void HelloServer();
+	void StartHelloServer();
+	void EndHelloServer();
+
 private:
 	bool bIsNotifying = false;
+	bool bIsHello = false;
+
+	const char8_t* MessageUtf8;
+	const wchar_t* MessageUtf16;
+	FString MessageUtf8Str;
+	FString MessageJpTextLocal;
 
 protected:
 	// APawn interface

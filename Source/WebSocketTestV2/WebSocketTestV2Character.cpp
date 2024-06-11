@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿// Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "WebSocketTestV2Character.h"
 #include "Engine/LocalPlayer.h"
@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "WebSocketTestGameInstance.h"
+#include "Misc/Char.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -62,6 +63,9 @@ void AWebSocketTestV2Character::BeginPlay()
 }
 
 
+//////////////////////////////////////////////////////////////////////////
+// NotifyServer
+//
 void AWebSocketTestV2Character::NotifyServer()
 {
 	UWebSocketTestGameInstance* GameInstance = Cast<UWebSocketTestGameInstance>(GetGameInstance());
@@ -74,7 +78,6 @@ void AWebSocketTestV2Character::NotifyServer()
 		}
 	}
 }
-
 void AWebSocketTestV2Character::StartNotifyServer()
 {
 	if (!bIsNotifying)
@@ -83,16 +86,46 @@ void AWebSocketTestV2Character::StartNotifyServer()
 		NotifyServer();
 	}
 }
-
 void AWebSocketTestV2Character::EndNotifyServer()
 {
 	bIsNotifying = false;
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Hello
+//
+void AWebSocketTestV2Character::HelloServer()
+{
+	UWebSocketTestGameInstance* GameInstance = Cast<UWebSocketTestGameInstance>(GetGameInstance());
+
+	if (GameInstance)
+	{
+		if (GameInstance->WebSocket->IsConnected())
+		{
+			MessageUtf8 = u8"こんにちは";
+			MessageUtf8Str = UTF8_TO_TCHAR(MessageUtf8);
+			MessageJpTextLocal = StringCast<TCHAR>(*MessageUtf8Str);
+			GameInstance->WebSocket->Send(MessageJpTextLocal);
+
+		}
+	}
+}
+void AWebSocketTestV2Character::StartHelloServer()
+{
+	if (!bIsHello)
+	{
+		bIsHello = true;
+		HelloServer();
+	}
+}
+void AWebSocketTestV2Character::EndHelloServer()
+{
+	bIsHello = false;
+}
 
 //////////////////////////////////////////////////////////////////////////
 // Input
-
+//
 void AWebSocketTestV2Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	// Add Input Mapping Context
@@ -121,6 +154,9 @@ void AWebSocketTestV2Character::SetupPlayerInputComponent(UInputComponent* Playe
 		// EnhancedInputComponent->BindAction(NotifyAction, ETriggerEvent::Triggered, this, &AWebSocketTestV2Character::NotifyServer);
 		EnhancedInputComponent->BindAction(NotifyAction, ETriggerEvent::Started, this, &AWebSocketTestV2Character::StartNotifyServer);
 		EnhancedInputComponent->BindAction(NotifyAction, ETriggerEvent::Completed, this, &AWebSocketTestV2Character::EndNotifyServer);
+
+		EnhancedInputComponent->BindAction(HelloAction, ETriggerEvent::Started, this, &AWebSocketTestV2Character::StartHelloServer);
+		EnhancedInputComponent->BindAction(HelloAction, ETriggerEvent::Completed, this, &AWebSocketTestV2Character::EndHelloServer);
 	}
 	else
 	{

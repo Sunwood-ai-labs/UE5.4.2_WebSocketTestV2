@@ -50,3 +50,4 @@ Binaries
 .vs
 
 WebSocketTestV2.sln
+websocket_server.log

@@ -15,3 +15,5 @@ Saved
 .vsconfig
 .SourceSageAssets
 .Gaiah.md
+*.log
+.env

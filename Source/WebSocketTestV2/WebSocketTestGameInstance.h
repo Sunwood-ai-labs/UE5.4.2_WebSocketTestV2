@@ -21,6 +21,8 @@ public:
     virtual void Shutdown() override;
     TSharedPtr<IWebSocket> WebSocket;
 
+    FString MessageJpText;
+
 private:
     
 };
