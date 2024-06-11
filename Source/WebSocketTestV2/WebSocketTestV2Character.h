@@ -77,6 +77,11 @@ private:
 	bool bIsNotifying = false;
 	bool bIsHello = false;
 
+	const char8_t* MessageUtf8;
+	const wchar_t* MessageUtf16;
+	FString MessageUtf8Str;
+	FString MessageJpTextLocal;
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
